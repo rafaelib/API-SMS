@@ -43,7 +43,6 @@ export async function sendRecommendation(req: Request, res: Response) {
   try {
     const result = await recommendationsService.drawSong();
     if (result === false) return res.sendStatus(404);
-    console.log(result.id);
     return res.send(result);
   } catch (err) {
     console.log(err);

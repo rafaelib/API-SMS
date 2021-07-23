@@ -1,4 +1,5 @@
 import * as recommendationsRepository from "../repositories/recommendationsRepository";
+import {draw} from "./utils/draw"
 
 export async function addSong(name: string, link: string) {
   await recommendationsRepository.addSong(name, link);
@@ -23,17 +24,6 @@ export async function updateSongScore(
     await recommendationsRepository.deleteSong(id);
   }
 }
-/*
-export async function getAllSongs() {
-  const result = await recommendationsRepository.getAllSongs();
-  if (result.length === 0) return false;
-  return result;
-}
-
-export async function getHigherSongs(){
-  const result = await recommendationsRepository.getHigherSongs();
-  return result;
-}*/
 
 export async function drawSong() {
   const higherSongs = await recommendationsRepository.getHigherSongs();
@@ -48,7 +38,7 @@ export async function drawSong() {
     for (let i = 0; i < allSongs.length; i++) {
       availableIds.push(allSongs[i].id);
     }
-    drawnId = Math.floor(Math.random() * (Math.floor(allSongs.length - 1) + 1));
+    drawnId = draw(allSongs);
     const result = await recommendationsRepository.getSongById(
       availableIds[drawnId]
     );
@@ -58,9 +48,7 @@ export async function drawSong() {
       for (let i = 0; i < higherSongs.length; i++) {
         availableIds.push(higherSongs[i].id);
       }
-      drawnId = Math.floor(
-        Math.random() * (Math.floor(higherSongs.length - 1) + 1)
-      );
+      drawnId = draw(higherSongs)
       const result = await recommendationsRepository.getSongById(
         availableIds[drawnId]
       );
@@ -69,9 +57,7 @@ export async function drawSong() {
       for (let i = 0; i < lowerSongs.length; i++) {
         availableIds.push(lowerSongs[i].id);
       }
-      drawnId = Math.floor(
-        Math.random() * (Math.floor(lowerSongs.length - 1) + 1)
-      );
+      drawnId = draw(lowerSongs)
       const result = await recommendationsRepository.getSongById(
         availableIds[drawnId]
       );
