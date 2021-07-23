@@ -53,3 +53,13 @@ export async function getLowerSongs() {
   );
   return result.rows;
 }
+
+export async function getTopSongs(amount :number) {
+  const result = await connection.query(
+    `SELECT * 
+    FROM recommendations
+    ORDER BY score DESC
+    LIMIT $1`,[amount]
+  );
+  return result.rows;
+}

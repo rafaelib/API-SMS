@@ -51,3 +51,16 @@ export async function sendRecommendation(req: Request, res: Response) {
     res.sendStatus(500);
   }
 }
+
+export async function sendTopSongs(req: Request, res: Response) {
+  try {
+    const amount  = Number(req.params.amount);
+    if(amount <= 0) return res.sendStatus(400);
+    const result = await recommendationsService.sendTopSongs(amount);
+    if(!result) return res.sendStatus(400);
+    res.send(result)
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+}

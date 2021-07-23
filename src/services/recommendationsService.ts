@@ -79,3 +79,12 @@ export async function drawSong() {
     }
   }
 }
+
+export async function sendTopSongs(amount :number) {
+  const allSongs = await recommendationsRepository.getAllSongs();
+  if(amount > allSongs.length) return false;
+
+  const result = await recommendationsRepository.getTopSongs(amount);
+  return result;
+}
+
