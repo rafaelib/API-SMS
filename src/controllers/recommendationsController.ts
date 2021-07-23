@@ -2,7 +2,6 @@ import nameValidation from "../validations/nameValidation";
 import matchYoutubeUrl from "../validations/linkValidation";
 import { Request, Response } from "express";
 import * as recommendationsService from "../services/recommendationsService";
-import connection from "../database";
 
 export async function addSong(req: Request, res: Response) {
   const { name, youtubeLink } = req.body;
